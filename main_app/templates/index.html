@@ -13,13 +13,44 @@
         margin: 2rem;
 
     }
+    table {
+        margin: 2rem auto;
+
+    }
+
+    table a {
+        color: red;
+        text-decoration: none;
+
+    }
 </style>
 <body>
     <h1>Wish List Items</h1>
     {% if wish_items|length == 0 %}
         <h3>No Wish Items Exist</h3>
     {% else %}
-        <h3>There Are Wish Items</h1>
+        <h3>There Are Wish Items</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in wish_items %}
+                    <tr>
+                        <td>{{ item.description }}</td>
+                        <td>
+                            <form method="POST" action="{% url 'wish_delete' item.id %}">
+                                {% csrf_token %}
+                                <button type="submit">X</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}    
+            </tbody>
+        </table>
     {% endif %}
     <hr>
     <a href="{% url 'add' %}" class="pure-button">Add A Wish Item</a>

@@ -13,3 +13,7 @@ class WishAdd(CreateView):
     model = WishList
     fields = '__all__'
     success_url = '/'
+
+class WishDelete(DeleteView):
+    model = WishList
+    success_url = '/'
